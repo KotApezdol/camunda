@@ -1,19 +1,24 @@
 package com.example.workflow.connectors;
 
-import com.example.workflow.config.ProcessVariableConstants;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 
 public class PostgresConnect {
 
-/*    private final String url = "jdbc:postgresql://"+CENTRUM_IP+":5432/set";
-    private final String user = USER_DB;
-    private final String password = PASS_DB;*/
+    public void connect(String url, String user, String password) {
+       // Connection conn = null;
+        try {
+            Connection conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Connected to the PostgreSQL server successfully.");
 
-    public Connection connect(String url, String user, String password) {
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public boolean testConnect(String url, String user, String password) {
+        boolean connect = false;
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url, user, password);
@@ -22,7 +27,14 @@ public class PostgresConnect {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        return conn;
+        if(conn != null){
+            connect = true;
+        }
+        return connect;
+    }
+    public ResultSet selectResult(String query, String url, String user, String password) throws SQLException {
+        Connection c = DriverManager.getConnection(url, user, password);
+        Statement s = c.createStatement();
+        return s.executeQuery(query);
     }
 }

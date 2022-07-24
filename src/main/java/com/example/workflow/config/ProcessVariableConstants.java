@@ -6,6 +6,7 @@ public interface ProcessVariableConstants {
     String PASS_DB = "passDb";
     String USER_DB = "userDb";
     String IS_DB_CONNECT = "isDbConnect";
+    String CASH_COUNT = "cashCount";
 
 
 }
