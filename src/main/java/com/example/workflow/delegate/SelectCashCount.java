@@ -4,7 +4,9 @@ import com.example.workflow.config.ProcessVariableConstants;
 import com.example.workflow.connectors.PostgresConnect;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SelectCashCount implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
@@ -16,7 +18,7 @@ public class SelectCashCount implements JavaDelegate {
 
         String query = "SELECT COUNT(*) FROM cash_cash WHERE status = 'ACTIVE'";
         PostgresConnect respons = new PostgresConnect();
-        String result = String.valueOf(respons.selectResult(query, url, userDb, passDb));
+        String result = respons.selectResult(query, url, userDb, passDb);
 
 
 

@@ -32,9 +32,14 @@ public class PostgresConnect {
         }
         return connect;
     }
-    public ResultSet selectResult(String query, String url, String user, String password) throws SQLException {
+    public String selectResult(String query, String url, String user, String password) throws SQLException {
+        String result = "Скрипт не сработал";
         Connection c = DriverManager.getConnection(url, user, password);
         Statement s = c.createStatement();
-        return s.executeQuery(query);
+        ResultSet r = s.executeQuery(query);
+        while (r.next()){
+            result = r.getString(1);
+        }
+        return result;
     }
 }
