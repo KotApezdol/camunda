@@ -16,6 +16,7 @@ public class DifferencesUpload implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         List<String > uploaded = new ArrayList<>();
+        List<String > filed = new ArrayList<>();
         List<Servers> servers = (List<Servers>) delegateExecution.getVariable(ProcessVariableConstants.CHECKED);
         PostgresConnect connect = new PostgresConnect();
         String urlP = "jdbc:postgresql://172.29.21.238:5432/postgres";
@@ -24,12 +25,18 @@ public class DifferencesUpload implements JavaDelegate {
             String get = String.join("','",serv.getCashIP());
             String cashes = "'"+get+"'";
             String mrc = connect.getStringMrc(serv.getShopNumber(), cashes,urlP,"postgres", "postgres");
-            String upload = connect.sendMrc(serv.getServerIP(), serv.getShopNumber(),mrc,urlC,"postgres", "postgres");
-            if (Objects.equals(upload, "0")){
-                uploaded.add(serv.getShopNumber());
-            }
+            try{
+                    String upload = connect.sendMrc(serv.getServerIP(), serv.getShopNumber(),mrc,urlC,"postgres", "postgres");
+                    if (Objects.equals(upload, "0")){
+                    uploaded.add(serv.getShopNumber());
+                }
+                }catch (Exception e){
+                    filed.add(serv.getShopNumber());
+                }
         }
         int countUploaded = uploaded.size();
+        int countFiled = filed.size();
+        delegateExecution.setVariable("filed",countFiled);
         delegateExecution.setVariable(ProcessVariableConstants.UPLOADED_SHOPS,countUploaded);
 
     }

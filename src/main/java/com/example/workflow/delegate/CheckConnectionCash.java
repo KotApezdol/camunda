@@ -16,6 +16,7 @@ public class CheckConnectionCash implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
         List<Servers> checked = new ArrayList<>();
+        List<String > unChecked = new ArrayList<>();
         List<Servers> trueServers = (List<Servers>) delegateExecution.getVariable(ProcessVariableConstants.TRUE_SERVERS);
         String url = "jdbc:postgresql://172.29.21.238:5432/clients";
         PostgresConnect checkCash = new PostgresConnect();
@@ -24,9 +25,13 @@ public class CheckConnectionCash implements JavaDelegate {
             ArrayList<String> checkedCashes = new ArrayList<>();
             ArrayList<String> cashes = serv.getCashIP();
             for(String getCash : cashes) {
-                String check = checkCash.CheckCashConnect(getCash, url, "postgres", "postgres");
-                if (Objects.equals(check, "0")) {
-                    checkedCashes.add(getCash);
+                try {
+                    String check = checkCash.CheckCashConnect(getCash, url, "postgres", "postgres");
+                    if (Objects.equals(check, "0")) {
+                        checkedCashes.add(getCash);
+                    }
+                }catch (Exception e){
+                    unChecked.add(getCash);
                 }
             }
             checkedServ.setShopNumber(serv.getShopNumber());
@@ -40,6 +45,8 @@ public class CheckConnectionCash implements JavaDelegate {
             int cashes = serv.getCashIP().size();
             countTrueCashes += cashes;
         }
+        int countFiledCashes = unChecked.size();
+        delegateExecution.setVariable("unChecked",countFiledCashes);
         delegateExecution.setVariable("countTrueCashes", countTrueCashes);
         delegateExecution.setVariable(ProcessVariableConstants.CHECKED, checked);
 
