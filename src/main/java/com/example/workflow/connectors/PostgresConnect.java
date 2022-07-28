@@ -133,10 +133,10 @@ public class PostgresConnect {
         String result = "";
         Connection c = DriverManager.getConnection(url, user, password);
         Statement s = c.createStatement();
-        String servQuery = "SELECT DISTINCT code FROM data_control_mrc_alco_check_62 WHERE shop_number = "+shop_number+" and cash_ip in ("+cash_ip+") and product_marking is not NULL";
+        String servQuery = "select array_to_string(ARRAY(SELECT DISTINCT code FROM data_control_mrc_alco_check_62 WHERE shop_number = "+shop_number+" and cash_ip in ("+cash_ip+") and product_marking is not NULL),',')";
         ResultSet get = s.executeQuery(servQuery);
         while (get.next()) {
-            result += "'"+get.getString(1)+"'";
+            result = get.getString(1);
         }
         return result;
     }

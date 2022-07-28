@@ -21,16 +21,12 @@ public class DifferencesUpload implements JavaDelegate {
         String urlP = "jdbc:postgresql://172.29.21.238:5432/postgres";
         String urlC = "jdbc:postgresql://172.29.21.238:5432/clients";
         for(Servers serv : servers){
-            String cashes = "";
-            for (String cash : serv.getCashIP()){
-                cashes += "'"+cash+"'";
-            }
-            List<String > mrc = connect.getListMrc(serv.getShopNumber(), cashes,urlP,"postgres", "postgres");
-            for (String gMrc : mrc){
-                String upload = connect.sendMrc(serv.getServerIP(),serv.getShopNumber(),gMrc,urlC,"postgres", "postgres");
-                if (Objects.equals(upload, "0")){
-                    uploaded.add(serv.getShopNumber());
-                }
+            String get = String.join("','",serv.getCashIP());
+            String cashes = "'"+get+"'";
+            String mrc = connect.getStringMrc(serv.getShopNumber(), cashes,urlP,"postgres", "postgres");
+            String upload = connect.sendMrc(serv.getServerIP(), serv.getShopNumber(),mrc,urlC,"postgres", "postgres");
+            if (Objects.equals(upload, "0")){
+                uploaded.add(serv.getShopNumber());
             }
         }
         int countUploaded = uploaded.size();
