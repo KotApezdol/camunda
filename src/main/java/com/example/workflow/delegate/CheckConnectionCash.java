@@ -29,6 +29,7 @@ public class CheckConnectionCash implements JavaDelegate {
                     checkedCashes.add(getCash);
                 }
             }
+            checkedServ.setShopNumber(serv.getShopNumber());
             checkedServ.setServerIP(serv.getServerIP());
             checkedServ.setCashIP(checkedCashes);
             checked.add(checkedServ);

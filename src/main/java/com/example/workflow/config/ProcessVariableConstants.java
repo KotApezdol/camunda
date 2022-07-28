@@ -11,6 +11,7 @@ public interface ProcessVariableConstants {
     String TRUE_SERVERS = "trueServers";
     String CHECKED = "checked";
     String SHOP_NUMBER = "shopNumber";
+    String UPLOADED_SHOPS = "uploadedShops";
 
 
 }

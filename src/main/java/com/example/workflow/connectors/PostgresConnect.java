@@ -56,6 +56,7 @@ public class PostgresConnect {
             while (servIp.next()) {
                 Servers server = new Servers();
                 ArrayList<String> cashes = new ArrayList<>();
+                server.setShopNumber(servIp.getString(1));
                 server.setServerIP(servIp.getString(2));
                 String cashQuery = "select DISTINCT cash_ip from data_control_mrc_alco_check_62 WHERE shop_ip = '" + servIp.getString(2) + "' and cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY cash_ip ASC";
                 Statement s2 = c.createStatement();
@@ -77,6 +78,7 @@ public class PostgresConnect {
         while (servIp.next()) {
             Servers server = new Servers();
             ArrayList<String> cashes = new ArrayList<>();
+            server.setShopNumber(servIp.getString(1));
             server.setServerIP(servIp.getString(2));
             String cashQuery = "select DISTINCT cash_ip from data_control_mrc_alco_check_62 WHERE shop_ip = '" + servIp.getString(2) + "' and cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY cash_ip ASC";
             Statement s2 = c.createStatement();
@@ -110,6 +112,43 @@ public class PostgresConnect {
         ResultSet r = s.executeQuery(query);
         while (r.next()){
             result = r.getString(1);
+        }
+        return result;
+    }
+
+    public String sendMrc(String shopIp,String shop_number,String mrc, String url, String user, String password) throws SQLException {
+        String result = "NE OK";
+        Connection c = DriverManager.getConnection(url, user, password);
+        Statement s = c.createStatement();
+        String servQuery = "SELECT post_mrc_to_server(62, '"+shopIp+"', "+shop_number+", '"+mrc+"')";
+        ResultSet send = s.executeQuery(servQuery);
+        while (send.next()) {
+            result = send.getString(1);
+        }
+        return result;
+    }
+
+    public String getStringMrc(String shop_number,String cash_ip, String url, String user, String password) throws SQLException {
+        List<String> mrc = new ArrayList<>();
+        String result = "";
+        Connection c = DriverManager.getConnection(url, user, password);
+        Statement s = c.createStatement();
+        String servQuery = "SELECT DISTINCT code FROM data_control_mrc_alco_check_62 WHERE shop_number = "+shop_number+" and cash_ip in ("+cash_ip+") and product_marking is not NULL";
+        ResultSet get = s.executeQuery(servQuery);
+        while (get.next()) {
+            result += "'"+get.getString(1)+"'";
+        }
+        return result;
+    }
+
+    public List<String > getListMrc(String shop_number,String cash_ip, String url, String user, String password) throws SQLException {
+        List<String> result = new ArrayList<>();
+        Connection c = DriverManager.getConnection(url, user, password);
+        Statement s = c.createStatement();
+        String servQuery = "SELECT DISTINCT code FROM data_control_mrc_alco_check_62 WHERE shop_number = "+shop_number+" and cash_ip in ("+cash_ip+") and product_marking is not NULL";
+        ResultSet get = s.executeQuery(servQuery);
+        while (get.next()) {
+            result.add(get.getString(1));
         }
         return result;
     }
