@@ -1,5 +1,6 @@
 package com.example.workflow.delegate;
 
+import com.example.workflow.bot.CamundaBot;
 import com.example.workflow.config.ProcessVariableConstants;
 import com.example.workflow.connectors.PostgresConnect;
 import com.example.workflow.data.Servers;
@@ -29,15 +30,19 @@ public class DifferencesUpload implements JavaDelegate {
                     String upload = connect.sendMrc(serv.getServerIP(), serv.getShopNumber(),mrc,urlC,"postgres", "postgres");
                     if (Objects.equals(upload, "0")){
                     uploaded.add(serv.getShopNumber());
-                }
+                }else {
+                        filed.add(serv.getShopNumber());
+                    }
                 }catch (Exception e){
-                    filed.add(serv.getShopNumber());
+                    e.printStackTrace();
                 }
         }
         int countUploaded = uploaded.size();
         int countFiled = filed.size();
-        delegateExecution.setVariable("filed",countFiled);
-        delegateExecution.setVariable(ProcessVariableConstants.UPLOADED_SHOPS,countUploaded);
+        delegateExecution.setVariable(ProcessVariableConstants.NOT_UPLOADED, filed);
+        delegateExecution.setVariable("countFiled",countFiled);
+        delegateExecution.setVariable(ProcessVariableConstants.UPLOADED_SHOPS,uploaded);
+        delegateExecution.setVariable("countUploaded",countUploaded);
 
     }
 }

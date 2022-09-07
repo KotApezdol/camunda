@@ -26,8 +26,11 @@ public class CheckConnectionServers implements JavaDelegate {
                 if (Objects.equals(check, "0")) {
                     trueServers.add(serv);
                 }
-                }catch (Exception e){
+                else {
                     filedServers.add(serv);
+                }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
         }
         int countTrueServers = trueServers.size();

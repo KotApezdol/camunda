@@ -12,6 +12,9 @@ public interface ProcessVariableConstants {
     String CHECKED = "checked";
     String SHOP_NUMBER = "shopNumber";
     String UPLOADED_SHOPS = "uploadedShops";
+    String NOT_UPLOADED = "notUploaded";
+    String TEXT_TO_TELEGRAM = "textToTelegram";
+    String ID_CHAT = "idChat";
 
 
 }

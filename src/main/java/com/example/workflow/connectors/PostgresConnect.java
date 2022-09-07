@@ -5,6 +5,7 @@ import com.example.workflow.data.Servers;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class PostgresConnect {
@@ -104,14 +105,18 @@ public class PostgresConnect {
         return result;
     }
 
-    public String CheckCashConnect(String ip, String url, String user, String password) throws SQLException {
-        String result = "Скрипт не сработал";
-        String query = "SELECT get_cash_db_status(62,'"+ip+"');";
+    public ArrayList <String> CheckCashConnect(String ip, String url, String user, String password) throws SQLException {
+        ArrayList <String> result = new ArrayList<>();
+        String query = "SELECT * FROM get_cash_db_status_starter(62,'"+ip+"');";
         Connection c = DriverManager.getConnection(url, user, password);
         Statement s = c.createStatement();
         ResultSet r = s.executeQuery(query);
         while (r.next()){
-            result = r.getString(1);
+            String ipCash = r.getString(1);
+            String status = r.getString(2);
+            if (Objects.equals(status, "0")){
+                result.add(ipCash);
+            }
         }
         return result;
     }
@@ -120,7 +125,7 @@ public class PostgresConnect {
         String result = "NE OK";
         Connection c = DriverManager.getConnection(url, user, password);
         Statement s = c.createStatement();
-        String servQuery = "SELECT post_mrc_to_server(62, '"+shopIp+"', "+shop_number+", '"+mrc+"')";
+        String servQuery = "SELECT post_mrc_to_server_starter(62, '"+shopIp+"', "+shop_number+", '"+mrc+"')";
         ResultSet send = s.executeQuery(servQuery);
         while (send.next()) {
             result = send.getString(1);

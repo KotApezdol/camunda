@@ -8,3 +8,8 @@ camunda.bpm.admin-user:
   id: demo
   password: demo
 
+bot:
+  name: CSI_Test_Camunda_Bot
+  token: 5587291320:AAH52dWxMrkFKTlo4EjcjfHiMqlv6nsPB_g
+
+
