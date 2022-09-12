@@ -6,10 +6,9 @@ import com.example.workflow.data.Servers;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 
 @Component
 public class GetServersFromDatabase implements JavaDelegate {

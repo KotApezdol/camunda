@@ -13,6 +13,8 @@ public class CamundaBot extends TelegramLongPollingBot {
 
 
     long idChat;
+    @Value("${bot.chatId}")
+    String chatId;
 
     public long getIdChat(){
         return idChat;
@@ -87,7 +89,7 @@ public class CamundaBot extends TelegramLongPollingBot {
         String combo = "Всего найдено расхождений на "+all+" ТК \nНе прошли проверку "+filed+" ТК \nЗагружено на "+textToSend+" ТК \nОшибка загрузки на "+textToFail+" ТК";
         SendMessage message = new SendMessage();
         message.enableMarkdown(true);
-        message.setChatId(String.valueOf(-500642946));
+        message.setChatId(String.valueOf(chatId));
         message.setText(combo);
         try {
             execute(message);

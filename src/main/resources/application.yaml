@@ -8,8 +8,24 @@ camunda.bpm.admin-user:
   id: demo
   password: demo
 
+camunda:
+  bpm:
+    job-execution:
+      lock-time-in-millis: 3600000
+
+logging:
+  level:
+    org.camunda: debug
+    org.springframework: error
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: ./logs/camunda.log
+
 bot:
   name: CSI_Test_Camunda_Bot
   token: 5587291320:AAH52dWxMrkFKTlo4EjcjfHiMqlv6nsPB_g
+  chatId: -500642946
 
 
