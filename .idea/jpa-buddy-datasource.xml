@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-source-infos>
+      <data-source-info id="ee8a5883-2357-41c3-b9ec-e05ec91dedc3" persistence-unit-name="DataPostgres" />
+      <data-source-info id="7a563aee-c1f0-4f2e-ad2d-7181bd0b46d8" persistence-unit-name="DataClients" />
+      <data-source-info id="41af0b74-d861-48da-a104-8f4883e8201c" persistence-unit-name="Default" />
+      <data-source-info id="7a563aee-c1f0-4f2e-ad2d-7181bd0b46d8" persistence-unit-name="clients" />
+    </data-source-infos>
+  </component>
+</project>

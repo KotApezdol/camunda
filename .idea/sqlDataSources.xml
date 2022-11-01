@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="7b39901c-71d4-43ed-9ecb-97626de452d3" name="DDL Mapping">
+      <data-sources db="7a563aee-c1f0-4f2e-ad2d-7181bd0b46d8" ddl="21c167d7-911c-4798-b025-a6870f1cd3d6" />
+      <scope>
+        <node kind="database">
+          <name qname="camunda" />
+          <name qname="clients" />
+          <name qname="postgres" />
+        </node>
+      </scope>
+    </mapping>
+  </component>
+</project>

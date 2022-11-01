@@ -52,14 +52,14 @@ public class PostgresConnect {
         List<Servers> servers = new ArrayList<>();
         Connection c = DriverManager.getConnection(url, user, password);
         Statement s = c.createStatement();
-        String servQuery = "select DISTINCT shop_number, shop_ip from data_control_mrc_alco_check_62 WHERE cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY shop_number ASC";
+        String servQuery = "select DISTINCT shop_number, shop_ip from data_control_cash_catalog_check WHERE cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY shop_number ASC";
         ResultSet servIp = s.executeQuery(servQuery);
             while (servIp.next()) {
                 Servers server = new Servers();
                 ArrayList<String> cashes = new ArrayList<>();
                 server.setShopNumber(servIp.getString(1));
                 server.setServerIP(servIp.getString(2));
-                String cashQuery = "select DISTINCT cash_ip from data_control_mrc_alco_check_62 WHERE shop_ip = '" + servIp.getString(2) + "' and cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY cash_ip ASC";
+                String cashQuery = "select DISTINCT cash_ip from data_control_cash_catalog_check WHERE shop_ip = '" + servIp.getString(2) + "' and cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY cash_ip ASC";
                 Statement s2 = c.createStatement();
                 ResultSet cashIp = s2.executeQuery(cashQuery);
                 while (cashIp.next()) {
@@ -74,14 +74,14 @@ public class PostgresConnect {
         List<Servers> servers = new ArrayList<>();
         Connection c = DriverManager.getConnection(url, user, password);
         Statement s = c.createStatement();
-        String servQuery = "select DISTINCT shop_number, shop_ip from data_control_mrc_alco_check_62 WHERE shop_number in ("+shop+") and cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY shop_number ASC";
+        String servQuery = "select DISTINCT shop_number, shop_ip from data_control_cash_catalog_check WHERE shop_number in ("+shop+") and cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY shop_number ASC";
         ResultSet servIp = s.executeQuery(servQuery);
         while (servIp.next()) {
             Servers server = new Servers();
             ArrayList<String> cashes = new ArrayList<>();
             server.setShopNumber(servIp.getString(1));
             server.setServerIP(servIp.getString(2));
-            String cashQuery = "select DISTINCT cash_ip from data_control_mrc_alco_check_62 WHERE shop_ip = '" + servIp.getString(2) + "' and cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY cash_ip ASC";
+            String cashQuery = "select DISTINCT cash_ip from data_control_cash_catalog_check WHERE shop_ip = '" + servIp.getString(2) + "' and cm_type_of_data in (1,2,3,4) and product_marking is not null ORDER BY cash_ip ASC";
             Statement s2 = c.createStatement();
             ResultSet cashIp = s2.executeQuery(cashQuery);
             while (cashIp.next()) {
@@ -138,7 +138,7 @@ public class PostgresConnect {
         String result = "";
         Connection c = DriverManager.getConnection(url, user, password);
         Statement s = c.createStatement();
-        String servQuery = "select array_to_string(ARRAY(SELECT DISTINCT code FROM data_control_mrc_alco_check_62 WHERE shop_number = "+shop_number+" and cash_ip in ("+cash_ip+") and product_marking is not NULL),',')";
+        String servQuery = "select array_to_string(ARRAY(SELECT DISTINCT code FROM data_control_cash_catalog_check WHERE shop_number = "+shop_number+" and cash_ip in ("+cash_ip+") and product_marking is not NULL),',')";
         ResultSet get = s.executeQuery(servQuery);
         while (get.next()) {
             result = get.getString(1);
@@ -150,7 +150,7 @@ public class PostgresConnect {
         List<String> result = new ArrayList<>();
         Connection c = DriverManager.getConnection(url, user, password);
         Statement s = c.createStatement();
-        String servQuery = "SELECT DISTINCT code FROM data_control_mrc_alco_check_62 WHERE shop_number = "+shop_number+" and cash_ip in ("+cash_ip+") and product_marking is not NULL";
+        String servQuery = "SELECT DISTINCT code FROM data_control_cash_catalog_check WHERE shop_number = "+shop_number+" and cash_ip in ("+cash_ip+") and product_marking is not NULL";
         ResultSet get = s.executeQuery(servQuery);
         while (get.next()) {
             result.add(get.getString(1));

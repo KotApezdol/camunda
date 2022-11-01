@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/connectors/PostgresConnect.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/connectors/PostgresConnect.java" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/delegate/CheckServersFromDataControl.java" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/delegate/GetServersFromDataControl.java" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/delegate/ProductUploadFromDataControl.java" dialect="PostgreSQL" />
   </component>
 </project>

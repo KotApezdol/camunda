@@ -9,11 +9,14 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Objects;
 
+import static com.example.workflow.config.ProcessVariableConstants.SERVERS_FROM_DB;
+
 
 @Component
 public class GetServersFromDatabase implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
+
         String url = "jdbc:postgresql://172.29.21.238:5432/postgres";
         String allShop = "*";
         String shopNumber = (String) delegateExecution.getVariable(ProcessVariableConstants.SHOP_NUMBER);
@@ -39,7 +42,7 @@ public class GetServersFromDatabase implements JavaDelegate {
         delegateExecution.setVariable("countAllCashes", countAllCashes);
         delegateExecution.setVariable("allShops",allShop);
         delegateExecution.setVariable("countAllServers", countAllServers);
-        delegateExecution.setVariable(ProcessVariableConstants.SERVERS_FROM_DB,serversFromDb);
+        delegateExecution.setVariable(SERVERS_FROM_DB,serversFromDb);
 
     }
 }

@@ -15,6 +15,8 @@ public interface ProcessVariableConstants {
     String NOT_UPLOADED = "notUploaded";
     String TEXT_TO_TELEGRAM = "textToTelegram";
     String ID_CHAT = "idChat";
+    String COUNT_ALL_SERV = "countAllServ";
+    String COUNT_ALL_CASHES ="countAllCashes";
 
 
 }

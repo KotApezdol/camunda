@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit name="Default" />
+      <persistence-unit name="clients" persistenceXmlPath="src/main/resources/hibernate.clients.cfg.xml">
+        <packages>
+          <package value="com.example.workflow.data.clients" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+</project>
