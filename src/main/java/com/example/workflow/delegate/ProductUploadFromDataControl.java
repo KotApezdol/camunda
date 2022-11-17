@@ -41,6 +41,7 @@ public class ProductUploadFromDataControl implements JavaDelegate {
                                     .setParameter("productList", items);
                             uploaded = query.getSingleResult();
                         }catch (Exception e){
+                            e.printStackTrace();
                             System.out.println(e.getMessage());
                             uploaded = 1;
                         }

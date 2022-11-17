@@ -94,8 +94,9 @@ public class GetServersFromDataControl implements JavaDelegate {
                     .getResultList();
 
             int itemsCount = items.size();
+            int mrcCount = mrc.size();
 
-            DataCash dataCash = new DataCash(ip,id,shopNumber.intValue(),cashNumber.intValue(),items,mrc,checked,product_uploaded,mrc_uploaded,itemsCount);
+            DataCash dataCash = new DataCash(ip,id,shopNumber.intValue(),cashNumber.intValue(),items,mrc,checked,product_uploaded,mrc_uploaded,itemsCount,mrcCount);
             clSession.merge(dataCash);
         }
 

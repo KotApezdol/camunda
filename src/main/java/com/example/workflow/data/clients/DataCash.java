@@ -59,4 +59,8 @@ public class DataCash {
     @Column(name = "itemscount")
     private int itemsCount;
 
+    @Basic
+    @Column(name = "mrccount")
+    private int mrccount;
+
 }

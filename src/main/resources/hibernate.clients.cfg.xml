@@ -11,6 +11,7 @@
     <mapping class="com.example.workflow.data.clients.Clients"/>
     <mapping class="com.example.workflow.data.clients.DataServs"/>
     <mapping class="com.example.workflow.data.clients.DataCash"/>
+    <mapping class="com.example.workflow.data.clients.DataAlarm"/>
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
