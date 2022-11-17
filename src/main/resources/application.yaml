@@ -36,7 +36,6 @@ spring.mail:
             enable: true
 
 
-
 bot:
   name: CSI_Test_Camunda_Bot
   token: 5587291320:AAH52dWxMrkFKTlo4EjcjfHiMqlv6nsPB_g
@@ -46,3 +45,4 @@ typeOfData:
   all: 1,2,3,4,31
   prod: 31
   mrc: 1,2,3,4
+

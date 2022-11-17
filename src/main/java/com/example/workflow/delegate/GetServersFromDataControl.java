@@ -47,6 +47,7 @@ public class GetServersFromDataControl implements JavaDelegate {
                     .setParameter("id",clientId)
                     .setParameter("type",allDataInt)
                     .setParameter("ip",ip)
+                    .setMaxResults(1)
                     .getSingleResult();
             List<String> cashes = pgSession.createQuery("select distinct d.cashIp from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.shopIp = :ip", String.class)
                     .setParameter("id",clientId)
@@ -73,12 +74,14 @@ public class GetServersFromDataControl implements JavaDelegate {
                     .setParameter("id",clientId)
                     .setParameter("type",allDataInt)
                     .setParameter("ip",ip)
+                    .setMaxResults(1)
                     .getSingleResult();
 
             Long cashNumber = pgSession.createQuery("select distinct d.cashNumber from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.cashIp = :ip", Long.class)
                     .setParameter("id",clientId)
                     .setParameter("type",allDataInt)
                     .setParameter("ip",ip)
+                    .setMaxResults(1)
                     .getSingleResult();
 
             List<String> items = pgSession.createQuery("select distinct d.code from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.cashIp = :ip", String.class)
