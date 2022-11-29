@@ -20,7 +20,10 @@ public class GetAlarmsFromDataControl implements JavaDelegate {
 
         List<String> cashes = clSession.createQuery("select d.cashIp from DataCash d where d.clientId = :id", String.class)
                 .setParameter("id",clientId).getResultList();
+        clSession.getTransaction().commit();
+
         for(String ip : cashes){
+            clSession.beginTransaction();
             DataCash cash = clSession.get(DataCash.class,ip);
             Long exist = clSession.createQuery("select count (d.cashNumber) from DataAlarm d where d.cashIp = :ip and d.clientId = :id", Long.class)
                     .setParameter("ip", ip)
@@ -71,10 +74,9 @@ public class GetAlarmsFromDataControl implements JavaDelegate {
                 cashAlarm = new DataAlarm(cash.getCashIp(), cash.getClientId(), cash.getShopNumber(), cash.getCashNumber(), itemsErr, mrcErr, checkErr);
                 clSession.merge(cashAlarm);
             }
+            clSession.getTransaction().commit();
         }
 
-
-        clSession.getTransaction().commit();
         clSession.close();
     }
 }

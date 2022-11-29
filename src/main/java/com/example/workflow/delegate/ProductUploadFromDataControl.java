@@ -18,9 +18,11 @@ public class ProductUploadFromDataControl implements JavaDelegate {
         String clientId = (String) delegateExecution.getVariable("clientId");
         Session clSession = HibernateUtil.getClientsSessionFactory().openSession();
         clSession.beginTransaction();
-        List<String> shopIp = clSession.createQuery("select d.shopIp  from DataServs d where d.clientId = :id and d.checked = true", String.class).setParameter("id",clientId).getResultList();
+        List<String> shopIp = clSession.createQuery("select d.shopIp  from DataServs d where d.clientId = :id ", String.class).setParameter("id",clientId).getResultList();
+        clSession.getTransaction().commit();
 
         for(String ip : shopIp){
+            clSession.beginTransaction();
             DataServs serv = clSession.get(DataServs.class,ip);
             if (serv.isChecked()){
                 for(String cashIp : serv.getCashes()){
@@ -52,11 +54,9 @@ public class ProductUploadFromDataControl implements JavaDelegate {
                     }
                 }
             }
-
-
+            clSession.getTransaction().commit();
         }
 
-        clSession.getTransaction().commit();
         clSession.close();
 
     }

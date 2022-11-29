@@ -32,7 +32,7 @@ public class GetServersFromDataControl implements JavaDelegate {
         clSession.createNativeQuery("truncate table data_servs", DataServs.class).executeUpdate();
         clSession.createNativeQuery("truncate table data_cash", DataCash.class).executeUpdate();
         clSession.getTransaction().commit();
-        clSession.beginTransaction();
+
 
         List<String> shops = pgSession.createQuery("select distinct d.shopIp from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type)", String.class)
                 .setParameter("id",clientId)
@@ -41,6 +41,7 @@ public class GetServersFromDataControl implements JavaDelegate {
 
 
         for (String ip : shops){
+            clSession.beginTransaction();
             boolean checked = false;
             int id = Integer.parseInt(clientId);
             Long number = pgSession.createQuery("select distinct d.shopNumber from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.shopIp = :ip", Long.class)
@@ -57,6 +58,7 @@ public class GetServersFromDataControl implements JavaDelegate {
 
             DataServs servs = new DataServs(ip,id,number.intValue(),cashes,checked);
             clSession.merge(servs);
+            clSession.getTransaction().commit();
         }
 
         List<String> cashes = pgSession.createQuery("select distinct d.cashIp from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type)", String.class)
@@ -65,6 +67,7 @@ public class GetServersFromDataControl implements JavaDelegate {
                 .getResultList();
 
         for(String ip : cashes){
+            clSession.beginTransaction();
             boolean checked = false;
             boolean product_uploaded = false;
             boolean mrc_uploaded = false;
@@ -84,7 +87,7 @@ public class GetServersFromDataControl implements JavaDelegate {
                     .setMaxResults(1)
                     .getSingleResult();
 
-            List<String> items = pgSession.createQuery("select distinct d.code from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.cashIp = :ip", String.class)
+            List<String> items = pgSession.createQuery("select distinct d.code from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.cashIp = :ip AND d.code != NULL", String.class)
                     .setParameter("id",clientId)
                     .setParameter("type",productDataInt)
                     .setParameter("ip",ip)
@@ -101,11 +104,10 @@ public class GetServersFromDataControl implements JavaDelegate {
 
             DataCash dataCash = new DataCash(ip,id,shopNumber.intValue(),cashNumber.intValue(),items,mrc,checked,product_uploaded,mrc_uploaded,itemsCount,mrcCount);
             clSession.merge(dataCash);
+            clSession.getTransaction().commit();
         }
 
-        clSession.getTransaction().commit();
         pgSession.close();
         clSession.close();
-
     }
 }

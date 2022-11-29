@@ -26,7 +26,7 @@ public class SendToBotFromDataControl implements JavaDelegate {
         Long countAllSev = clSession.createQuery("select distinct count(d.shopNumber) from DataServs d where d.clientId = :id", Long.class)
                 .setParameter("id", clientId)
                 .getSingleResult();
-        Long countAllCash = clSession.createQuery("select distinct count(d.cashNumber) from DataCash d where d.clientId = :id", Long.class)
+        Long countAllCash = clSession.createQuery("select distinct count(d.cashNumber) from DataCash d where d.clientId = :id and d.itemsCount > 0", Long.class)
                 .setParameter("id", clientId)
                 .getSingleResult();
         Long countCheckedServ = clSession.createQuery("select distinct count(d.shopNumber) from DataServs d where d.clientId = :id and d.checked = false", Long.class)

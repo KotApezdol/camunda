@@ -19,8 +19,10 @@ public class CheckServersFromDataControl implements JavaDelegate {
         Session clSession = HibernateUtil.getClientsSessionFactory().openSession();
         clSession.beginTransaction();
         List<String> shopIp = clSession.createQuery("select d.shopIp  from DataServs d where d.clientId = :id", String.class).setParameter("id",clientId).getResultList();
+        clSession.getTransaction().commit();
 
         for(String ip : shopIp){
+            clSession.beginTransaction();
             DataServs servs = clSession.get(DataServs.class,ip);
             int chek;
             try {
@@ -63,9 +65,9 @@ public class CheckServersFromDataControl implements JavaDelegate {
 
                 }
             }
-
+            clSession.getTransaction().commit();
         }
-        clSession.getTransaction().commit();
+
         clSession.close();
     }
 }
