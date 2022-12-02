@@ -2,11 +2,14 @@ package com.example.workflow.delegate;
 
 import com.example.workflow.bot.CamundaBot;
 import com.example.workflow.config.HibernateUtil;
+import com.example.workflow.data.clients.Clients;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class SendToBotFromDataControl implements JavaDelegate {
@@ -19,28 +22,38 @@ public class SendToBotFromDataControl implements JavaDelegate {
     }
     @Override
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        String clientId = (String) delegateExecution.getVariable("clientId");
         Session clSession = HibernateUtil.getClientsSessionFactory().openSession();
         clSession.beginTransaction();
 
-        Long countAllSev = clSession.createQuery("select distinct count(d.shopNumber) from DataServs d where d.clientId = :id", Long.class)
-                .setParameter("id", clientId)
-                .getSingleResult();
-        Long countAllCash = clSession.createQuery("select distinct count(d.cashNumber) from DataCash d where d.clientId = :id and d.itemsCount > 0", Long.class)
-                .setParameter("id", clientId)
-                .getSingleResult();
-        Long countCheckedServ = clSession.createQuery("select distinct count(d.shopNumber) from DataServs d where d.clientId = :id and d.checked = false", Long.class)
-                .setParameter("id", clientId)
-                .getSingleResult();
-        Long countCheckedCash = clSession.createQuery("select distinct count(d.cashNumber) from DataCash d where d.clientId = :id and d.checked = false", Long.class)
-                .setParameter("id", clientId)
-                .getSingleResult();
-        Long uploadedCash = clSession.createQuery("select distinct count(d.cashNumber) from DataCash d where d.clientId = :id and d.product_uploaded = true", Long.class)
-                .setParameter("id", clientId)
-                .getSingleResult();
+        List<Integer> clients = clSession.createQuery("select distinct d.clientId from DataServs d",Integer.class)
+                .getResultList();
+        StringBuilder message = new StringBuilder();
 
-        String message = "Всего серверов ("+countAllSev+")\nВсего касс ("+countAllCash+")\nНе прошло проверку серверов ("+countCheckedServ+")\nНе прошло проверку касс ("+countCheckedCash+")\nРасхождения по товарам загружены на "+uploadedCash+" касс";
-        bot.sendToTelegram(chatId,message);
+        for(Integer clientId : clients) {
+
+            Clients client = clSession.get(Clients.class, clientId);
+
+            Long countAllSev = clSession.createQuery("select distinct count(d.shopNumber) from DataServs d where d.clientId = :id", Long.class)
+                    .setParameter("id", clientId)
+                    .getSingleResult();
+            Long countAllCash = clSession.createQuery("select distinct count(d.cashNumber) from DataCash d where d.clientId = :id and d.itemsCount > 0", Long.class)
+                    .setParameter("id", clientId)
+                    .getSingleResult();
+            Long countCheckedServ = clSession.createQuery("select distinct count(d.shopNumber) from DataServs d where d.clientId = :id and d.checked = false", Long.class)
+                    .setParameter("id", clientId)
+                    .getSingleResult();
+            Long countCheckedCash = clSession.createQuery("select distinct count(d.cashNumber) from DataCash d where d.clientId = :id and d.checked = false and d.itemsCount > 0", Long.class)
+                    .setParameter("id", clientId)
+                    .getSingleResult();
+            Long uploadedCash = clSession.createQuery("select distinct count(d.cashNumber) from DataCash d where d.clientId = :id and d.product_uploaded = true", Long.class)
+                    .setParameter("id", clientId)
+                    .getSingleResult();
+
+            String messageClient = "Клиент: " + client.getName() + "\nВсего серверов (" + countAllSev + ")\nВсего касс (" + countAllCash + ")\nНе прошло проверку серверов (" + countCheckedServ + ")\nНе прошло проверку касс (" + countCheckedCash + ")\nРасхождения по товарам загружены на " + uploadedCash + " касс\n";
+
+            message.append(messageClient);
+        }
+        bot.sendToTelegram(chatId, String.valueOf(message));
         clSession.close();
 
     }

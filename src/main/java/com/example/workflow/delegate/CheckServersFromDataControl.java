@@ -3,6 +3,8 @@ package com.example.workflow.delegate;
 import com.example.workflow.config.HibernateUtil;
 import com.example.workflow.data.clients.DataCash;
 import com.example.workflow.data.clients.DataServs;
+import com.example.workflow.data.clients.IpIdCash;
+import com.example.workflow.data.clients.IpIdServ;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.hibernate.Session;
@@ -18,12 +20,13 @@ public class CheckServersFromDataControl implements JavaDelegate {
         String clientId = (String) delegateExecution.getVariable("clientId");
         Session clSession = HibernateUtil.getClientsSessionFactory().openSession();
         clSession.beginTransaction();
-        List<String> shopIp = clSession.createQuery("select d.shopIp  from DataServs d where d.clientId = :id", String.class).setParameter("id",clientId).getResultList();
+        List<Integer> shops = clSession.createQuery("select d.shopIp  from DataServs d where d.clientId = :id", Integer.class).setParameter("id",clientId).getResultList();
         clSession.getTransaction().commit();
 
-        for(String ip : shopIp){
+        for(Integer shopNumber : shops){
             clSession.beginTransaction();
-            DataServs servs = clSession.get(DataServs.class,ip);
+            IpIdServ idServ = new IpIdServ(shopNumber,Integer.parseInt(clientId));
+            DataServs servs = clSession.get(DataServs.class,idServ);
             int chek;
             try {
                 chek = clSession.createQuery("select get_retail_db_status(:clientId,:ip)", Integer.class)
@@ -39,11 +42,11 @@ public class CheckServersFromDataControl implements JavaDelegate {
             if(chek==0) {
                 servs.setChecked(true);
                 clSession.merge(servs);
-                for (String cashIp : servs.getCashes()) {
+                for (Integer cashNumber : servs.getCashes()) {
                     try {
 
-
-                        DataCash cash = clSession.get(DataCash.class, cashIp);
+                        IpIdCash idCash = new IpIdCash(shopNumber,cashNumber,Integer.parseInt(clientId));
+                        DataCash cash = clSession.get(DataCash.class, idCash);
                         int chekCash;
                         try {
                             Query<Integer> query = clSession.createNativeQuery("select status from get_cash_db_status_starter(:clientId,:ip)", Integer.class)

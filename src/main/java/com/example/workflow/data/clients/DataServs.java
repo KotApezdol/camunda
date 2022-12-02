@@ -16,25 +16,24 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@IdClass(IpIdServ.class)
 public class DataServs {
-    @Basic
-    @Id
+
     @Column(name = "shop_ip")
     private String shopIp;
 
-    @Basic
+    @Id
     @Column(name = "client_id")
     private int clientId;
 
-    @Basic
+    @Id
     @Column(name = "shop_number")
     private int shopNumber;
 
     @Type(ListArrayType.class)
-    @Column(name = "array_cashes", columnDefinition = "text[]")
-    private List<String> cashes;
-
-    @Basic
+    @Column(name = "array_cashes", columnDefinition = "int4[]")
+    private List<Integer> cashes;
+    
     @Column(name = "checked")
     private boolean checked;
 

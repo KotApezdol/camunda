@@ -3,6 +3,8 @@ package com.example.workflow.delegate;
 import com.example.workflow.config.HibernateUtil;
 import com.example.workflow.data.clients.DataCash;
 import com.example.workflow.data.clients.DataServs;
+import com.example.workflow.data.clients.IpIdCash;
+import com.example.workflow.data.clients.IpIdServ;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.hibernate.Session;
@@ -18,22 +20,22 @@ public class ProductUploadFromDataControl implements JavaDelegate {
         String clientId = (String) delegateExecution.getVariable("clientId");
         Session clSession = HibernateUtil.getClientsSessionFactory().openSession();
         clSession.beginTransaction();
-        List<String> shopIp = clSession.createQuery("select d.shopIp  from DataServs d where d.clientId = :id ", String.class).setParameter("id",clientId).getResultList();
+        List<Integer> shopNumber = clSession.createQuery("select d.shopNumber  from DataServs d where d.clientId = :id ", Integer.class).setParameter("id",clientId).getResultList();
         clSession.getTransaction().commit();
 
-        for(String ip : shopIp){
+        for(Integer number : shopNumber){
             clSession.beginTransaction();
-            DataServs serv = clSession.get(DataServs.class,ip);
+            IpIdServ idServ = new IpIdServ(number,Integer.parseInt(clientId));
+            DataServs serv = clSession.get(DataServs.class,idServ);
             if (serv.isChecked()){
-                for(String cashIp : serv.getCashes()){
-                    DataCash cash = clSession.get(DataCash.class,cashIp);
+                for(Integer cashNumber : serv.getCashes()){
+                    IpIdCash idCash = new IpIdCash(number, cashNumber, Integer.parseInt(clientId));
+                    DataCash cash = clSession.get(DataCash.class,idCash);
                     if(cash.isChecked() && cash.getItemsCount() > 0){
                         int uploaded;
                         String get = String.join(",",cash.getItem());
                         String items = "'"+get+"'";
                         Long id = Long.valueOf(clientId);
-                        Long shopNumber = Long.valueOf(serv.getShopNumber());
-                        Long cashNumber = Long.valueOf(cash.getCashNumber());
                         try {
                             Query<Integer> query = clSession.createNativeQuery("SELECT * FROM send_product_to_server(:id, :servIp, :shopNumber, :cashNumber, :productList)", Integer.class)
                                     .setParameter("id", id)

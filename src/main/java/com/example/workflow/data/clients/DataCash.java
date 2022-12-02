@@ -16,22 +16,21 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@IdClass(IpIdCash.class)
 public class DataCash {
 
-    @Basic
-    @Id
     @Column(name = "cash_ip")
     private String cashIp;
 
-    @Basic
+    @Id
     @Column(name = "client_id")
     private int clientId;
 
-    @Basic
+    @Id
     @Column(name = "shop_number")
     private int shopNumber;
 
-    @Basic
+    @Id
     @Column(name = "cash_number")
     private int cashNumber;
 
@@ -43,23 +42,18 @@ public class DataCash {
     @Column(name = "array_mrc", columnDefinition = "text[]")
     private List<String> mrc;
 
-    @Basic
     @Column(name = "checked")
     private boolean checked;
 
-    @Basic
     @Column(name = "product_uploaded")
     private boolean product_uploaded;
 
-    @Basic
     @Column(name = "mrc_uploaded")
     private boolean mrc_uploaded;
 
-    @Basic
     @Column(name = "itemscount")
     private int itemsCount;
 
-    @Basic
     @Column(name = "mrccount")
     private int mrccount;
 
