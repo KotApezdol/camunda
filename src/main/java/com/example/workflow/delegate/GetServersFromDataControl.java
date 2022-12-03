@@ -37,29 +37,29 @@ public class GetServersFromDataControl implements JavaDelegate {
 
         for(Integer clientId : clients) {
 
-            List<String> shops = pgSession.createQuery("select distinct d.shopIp from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type)", String.class)
+            List<Long> shops = pgSession.createQuery("select distinct d.shopNumber from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type)", Long.class)
                     .setParameter("id", clientId)
                     .setParameter("type", allDataInt)
                     .getResultList();
 
 
-            for (String ip : shops) {
+            for (Long shopNumber : shops) {
                 clSession.beginTransaction();
                 boolean checked = false;
                 int id = clientId;
-                Long number = pgSession.createQuery("select distinct d.shopNumber from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.shopIp = :ip", Long.class)
+                String ip = pgSession.createQuery("select distinct d.shopIp from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.shopNumber = :shopNumber", String.class)
                         .setParameter("id", clientId)
                         .setParameter("type", allDataInt)
-                        .setParameter("ip", ip)
+                        .setParameter("shopNumber", shopNumber)
                         .setMaxResults(1)
                         .getSingleResult();
-                List<Integer> cashes = pgSession.createQuery("select distinct d.cashNumber from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.shopIp = :ip", Integer.class)
+                List<Integer> cashes = pgSession.createQuery("select distinct d.cashNumber from DataControl d where d.clientId = :id AND d.cmTypeOfData IN (:type) AND d.shopNumber = :shopNumber", Integer.class)
                         .setParameter("id", clientId)
                         .setParameter("type", allDataInt)
-                        .setParameter("ip", ip)
+                        .setParameter("shopNumber", shopNumber)
                         .getResultList();
 
-                DataServs servs = new DataServs(ip, id, number.intValue(), cashes, checked);
+                DataServs servs = new DataServs(ip, id, Math.toIntExact(shopNumber), cashes, checked);
                 clSession.merge(servs);
                 clSession.getTransaction().commit();
             }
