@@ -59,7 +59,7 @@ public class GetServersFromDataControl implements JavaDelegate {
                         .setParameter("shopNumber", shopNumber)
                         .getResultList();
 
-                DataServs servs = new DataServs(ip, id, Math.toIntExact(shopNumber), cashes, checked);
+                DataServs servs = new DataServs(ip, id, shopNumber.intValue(), cashes, checked);
                 clSession.merge(servs);
                 clSession.getTransaction().commit();
             }

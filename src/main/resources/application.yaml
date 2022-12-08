@@ -15,14 +15,13 @@ camunda:
 
 logging:
   level:
-    org.camunda: trace
-    org.springframework: trace
-    org.hibernate: trace
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    org.camunda: debug
+    org.springframework: debug
+    org.hibernate: debug
+    root: info
   file:
-    name: D:/logs/camunda.log
+    path: D:/logs/
+
 
 spring.mail:
   host: smtp.gmail.com
