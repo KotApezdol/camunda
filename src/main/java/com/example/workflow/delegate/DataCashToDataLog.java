@@ -30,7 +30,7 @@ public class DataCashToDataLog implements JavaDelegate {
             Clients client = clSession.get(Clients.class,id);
             for (DataCash cash : cashes){
                 if(cash.getItemsCount() > 0 || cash.getMrccount() > 0) {
-                    DataLog dataLog = new DataLog(LocalDate.now(), client.getName(), cash.getShopNumber(), cash.getCashNumber(), cash.getItemsCount(), cash.getMrccount());
+                    DataLog dataLog = new DataLog(LocalDate.now(), client.getName(), cash.getShopNumber(), cash.getCashNumber(), cash.getItemsCount(), cash.getMrccount(), cash.getItem(),cash.getMrc(),cash.getCmExtraInfo());
                     clSession.merge(dataLog);
                 }
             }

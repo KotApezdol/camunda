@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/connectors/PostgresConnect.java" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/delegate/CheckServersFromDataControl.java" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/delegate/CheckTransportFromDataControl.java" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/delegate/GetServersFromDataControl.java" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/example/workflow/delegate/ProductUploadFromDataControl.java" dialect="PostgreSQL" />
   </component>

@@ -69,7 +69,7 @@ public class SendToBotFromDataControl implements JavaDelegate {
                     "\nРасхождения по товарам загружены на " + uploadedCash + " касс" +
                     "\nВсего расхождений загружено (" + allDiff + ")" +
                     "\nРахождений по товарам (" + sumItems + ")" +
-                    "\nРасхождений по МРЦ (" + sumMrc + ")\n";
+                    "\nРасхождений по МРЦ (" + sumMrc + ")\n\n";
 
             message.append(messageClient);
         }

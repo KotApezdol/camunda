@@ -1,0 +1,35 @@
+"2022-12-13 17:58:19 [main] INFO  o.c.b.s.b.s.r.CamundaJerseyResourceConfig - Configuring camunda rest api.
+""2022-12-13 17:58:19 [main] INFO  o.c.b.s.b.s.r.CamundaJerseyResourceConfig - Finished configuring camunda rest api.
+""2022-12-13 17:58:19 [main] DEBUG o.c.b.s.b.s.r.CamundaBpmRestInitializer - Filter EmptyBodyFilter for URL [/engine-rest/*] registered.
+""2022-12-13 17:58:19 [main] DEBUG o.c.b.s.b.s.r.CamundaBpmRestInitializer - Filter CacheControlFilter for URL [/engine-rest/*] registered.
+""2022-12-13 17:58:19 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter Authentication Filter for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 17:58:19 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter Security Filter for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 17:58:19 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter CsrfPreventionFilter for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 17:58:19 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter SessionCookieFilter for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 17:58:19 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter HttpHeaderSecurity for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 17:58:19 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter Engines Filter for URL [/camunda/api/*, /camunda/app/*, /camunda/, /camunda] registered.
+""2022-12-13 17:58:20 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Cockpit Api for URL [/camunda/api/cockpit/*] registered.
+""2022-12-13 17:58:20 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Admin Api for URL [/camunda/api/admin/*] registered.
+""2022-12-13 17:58:20 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Tasklist Api for URL [/camunda/api/tasklist/*] registered.
+""2022-12-13 17:58:20 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Engine Api for URL [/camunda/api/engine/*] registered.
+""2022-12-13 17:58:20 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Welcome Api for URL [/camunda/api/welcome/*] registered.
+""2022-12-13 17:58:20 [main] DEBUG o.c.b.s.b.s.w.f.LazyInitRegistration - skipping lazy init for org.camunda.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@12c0c0b3 because application context not initialized yet
+""2022-12-13 17:58:20 [main] DEBUG o.c.b.s.b.s.w.f.LazyInitRegistration - skipping lazy init for org.camunda.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@32ec9c90 because application context not initialized yet
+""2022-12-13 19:26:16 [main] INFO  o.c.b.s.b.s.r.CamundaJerseyResourceConfig - Configuring camunda rest api.
+""2022-12-13 19:26:16 [main] INFO  o.c.b.s.b.s.r.CamundaJerseyResourceConfig - Finished configuring camunda rest api.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.r.CamundaBpmRestInitializer - Filter EmptyBodyFilter for URL [/engine-rest/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.r.CamundaBpmRestInitializer - Filter CacheControlFilter for URL [/engine-rest/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter Authentication Filter for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter Security Filter for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter CsrfPreventionFilter for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter SessionCookieFilter for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter HttpHeaderSecurity for URL [/camunda/api/*, /camunda/app/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Filter Engines Filter for URL [/camunda/api/*, /camunda/app/*, /camunda/, /camunda] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Cockpit Api for URL [/camunda/api/cockpit/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Admin Api for URL [/camunda/api/admin/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Tasklist Api for URL [/camunda/api/tasklist/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Engine Api for URL [/camunda/api/engine/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.CamundaBpmWebappInitializer - Servlet Welcome Api for URL [/camunda/api/welcome/*] registered.
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.f.LazyInitRegistration - skipping lazy init for org.camunda.bpm.spring.boot.starter.webapp.filter.LazyProcessEnginesFilter@1d858300 because application context not initialized yet
+""2022-12-13 19:26:17 [main] DEBUG o.c.b.s.b.s.w.f.LazyInitRegistration - skipping lazy init for org.camunda.bpm.spring.boot.starter.webapp.filter.LazySecurityFilter@2539cd1c because application context not initialized yet
+"

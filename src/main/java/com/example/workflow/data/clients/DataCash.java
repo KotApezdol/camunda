@@ -57,4 +57,10 @@ public class DataCash {
     @Column(name = "mrccount")
     private int mrccount;
 
+    @Column(name = "cm_extra_info")
+    private String cmExtraInfo;
+
+    @Column(name = "transport")
+    private int transport;
+
 }

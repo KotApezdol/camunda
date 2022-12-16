@@ -13,6 +13,8 @@
     <mapping class="com.example.workflow.data.clients.DataCash"/>
     <mapping class="com.example.workflow.data.clients.DataAlarm"/>
     <mapping class="com.example.workflow.data.clients.DataLog"/>
+    <mapping class="com.example.workflow.data.clients.DataValues"/>
+    <mapping class="com.example.workflow.data.clients.TransportDataValues"/>
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->

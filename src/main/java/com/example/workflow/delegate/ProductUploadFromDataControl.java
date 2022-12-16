@@ -31,8 +31,10 @@ public class ProductUploadFromDataControl implements JavaDelegate {
                 for(Integer cashNumber : serv.getCashes()){
                     IpIdCash idCash = new IpIdCash(shopNumber, cashNumber, Integer.parseInt(clientId));
                     DataCash cash = clSession.get(DataCash.class,idCash);
+                    boolean checkTransport = false;
                     try {
-                        if (cash.isChecked() && cash.getItemsCount() > 0) {
+                        if(cash.getTransport() == 0 || cash.getTransport() == 2) checkTransport = true;
+                        if (cash.isChecked() && cash.getItemsCount() > 0 && checkTransport ) {
                             int uploaded = 1;
                             String get = String.join(",", cash.getItem());
                             String items = "'" + get + "'";

@@ -15,10 +15,10 @@ camunda:
 
 logging:
   level:
-    org.camunda: debug
-    org.springframework: debug
-    org.hibernate: debug
-    root: info
+    org.camunda: error
+    org.springframework: error
+    org.hibernate: error
+    root: error
   file:
     path: D:/logs/
 
